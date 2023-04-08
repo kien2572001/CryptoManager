@@ -1,4 +1,6 @@
-const Dashbroad = () => {
+import PortfolioChart from "../Chart/PortfolioChart";
+
+export default function Dashbroad() {
   return (
     <div className="max-w-screen-xl mx-auto bg-blue-500  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {/*Total balance  */}
@@ -21,7 +23,9 @@ const Dashbroad = () => {
           <div className="p-4">
             <div className="leading-[30px] text-xl">Total Wallet</div>
             <div className="mt-6">$ 764.61</div>
-            <div className="mt-3 text-xs text-[#3571FD]">0 wallets | 0 assets</div>
+            <div className="mt-3 text-xs text-[#3571FD]">
+              0 wallets | 0 assets
+            </div>
           </div>
           <button className="flex items-center justify-center bg-[#162348] text-[#3571FD] py-2 px-3 h-[50px] rounded-b-[15px]">
             + Add Wallet
@@ -30,19 +34,26 @@ const Dashbroad = () => {
         {/* top porfolios */}
         <div className="card-container-with-bottom-button text-[#ffffffe6] flex flex-col p-0">
           <div className="p-4">
-            <div className="leading-[30px] text-xl">Total Wallet</div>
+            <div className="leading-[30px] text-xl">Total Portfolio</div>
             <div className="mt-6">$ 764.61</div>
-            <div className="mt-3 text-xs text-[#3571FD]">0 wallets | 0 assets</div>
+            <div className="mt-3 text-xs text-[#3571FD]">
+              0 wallets | 0 assets
+            </div>
           </div>
           <button className="flex items-center justify-center bg-[#162348] text-[#3571FD] py-2 px-3 h-[50px] rounded-b-[15px]">
-            + Add Wallet
+            + Add Portfolio
           </button>
         </div>
       </div>
-      <div>3</div>
+      <div className="md:col-span-2 lg:col-span-2 card-container flex flex-col p-6">
+        <div className="flex justify-between items-center">
+          <div className="leading-[30px] text-xl text-[#ffffffe6]">
+            Portfolio Chart
+          </div>
+        </div>
+        <PortfolioChart />
+      </div>
       <div>4</div>
     </div>
   );
-};
-
-export default Dashbroad;
+}
