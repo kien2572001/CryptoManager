@@ -10,11 +10,16 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.11.16",
+    "@mui/styled-engine-sc": "^5.11.11",
+    "@mui/x-data-grid": "^6.0.4",
     "apexcharts": "^3.37.3",
+    "mongodb": "^5.2.0",
+    "mongoose": "^7.0.3",
     "next": "latest",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

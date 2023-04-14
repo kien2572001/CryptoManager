@@ -1,8 +1,9 @@
 import PortfolioChart from "../Chart/PortfolioChart";
+import PortfolioTable from "../Table/PortfolioTable";
 
 export default function Dashbroad() {
   return (
-    <div className="max-w-screen-xl mx-auto bg-blue-500  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div className="max-w-screen-xl mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {/*Total balance  */}
       <div className="card-container text-[#ffffffe6] flex flex-col">
         <div className="leading-[30px]">Total Balance</div>
@@ -53,7 +54,9 @@ export default function Dashbroad() {
         </div>
         <PortfolioChart />
       </div>
-      <div>4</div>
+      <div className="card-container flex flex-col p-6 md:col-span-2 lg:col-span-4 text-white">
+        <PortfolioTable />
+      </div>
     </div>
   );
 }

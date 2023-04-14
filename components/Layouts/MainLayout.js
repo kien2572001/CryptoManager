@@ -1,6 +1,6 @@
 const MainLayout = ({ children }) => {
   return (
-    <div className="">
+    <div className="bg-[#121321]">
       {children}
     </div>
   );
