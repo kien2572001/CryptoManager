@@ -1,5 +1,6 @@
 import PortfolioChart from "../Chart/PortfolioChart";
 import PortfolioTable from "../Table/PortfolioTable";
+import SwapModal from "../SwapModal";
 
 export default function Dashbroad() {
   return (
@@ -41,9 +42,7 @@ export default function Dashbroad() {
               0 wallets | 0 assets
             </div>
           </div>
-          <button className="flex items-center justify-center bg-[#162348] text-[#3571FD] py-2 px-3 h-[50px] rounded-b-[15px]">
-            + Add Portfolio
-          </button>
+          <SwapModal />
         </div>
       </div>
       <div className="md:col-span-2 lg:col-span-2 card-container flex flex-col p-6">
