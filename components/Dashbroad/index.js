@@ -1,11 +1,31 @@
 import PortfolioChart from "../Chart/PortfolioChart";
 import PortfolioTable from "../Table/PortfolioTable";
 import SwapModal from "../SwapModal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import dynamic from "next/dynamic";
+
+import { BinanceConnector } from "@binance/connector";
+const binance = new BinanceConnector({
+  apiKey: process.env.BINANCE_API_KEY,
+  apiSecret: process.env.BINANCE_API_SECRET,
+});
+
+const symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "ADAUSDT", "DOTUSDT"];
 
 export default function Dashbroad({ portfolio }) {
   const [coins, setCoins] = useState(portfolio.coins);
 
+  useEffect(() => {
+    const handlerTicker = (data) => {
+      console.log(data);
+      // xu ly data
+    };
+    binance.subscribeTicker(symbols, handlerTicker);
+    return () => {
+      binance.unsubscribeTicker(symbols, handlerTicker);
+    };
+  }, []);
   return (
     <div className="max-w-screen-xl mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {/*Total balance  */}
