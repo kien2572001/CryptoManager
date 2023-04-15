@@ -40,7 +40,12 @@ export default function BasicTable({ coins }) {
               <TableCell component="th" scope="row">
                 {row.symbol}
               </TableCell>
-              <TableCell align="right">{row.amount}</TableCell>
+              <TableCell align="right">
+                {row.amount} |{" "}
+                {Number.parseFloat(row.amount) *
+                  Number.parseFloat(row.costPrice).toFixed(2)}{" "}
+                $
+              </TableCell>
               <TableCell align="right">{row.costPrice}</TableCell>
               <TableCell align="right">{row.costPrice}</TableCell>
               <TableCell align="right">{row.costPrice}</TableCell>

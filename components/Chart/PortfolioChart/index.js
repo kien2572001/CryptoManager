@@ -11,7 +11,7 @@ export default function PortfolioChart({ coins }) {
         },
       },
     },
-    label: coins.map((coin) => coin.symbol),
+    labels: coins.map((coin) => coin.symbol),
   };
 
   const series = coins.map(

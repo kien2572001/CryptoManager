@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-const mongo_url =
-  "mongodb+srv://PortfolioManager:kien0988742565@crypto-manager.eznss6v.mongodb.net/?retryWrites=true&w=majority";
+const mongo_url = process.env.MONGODB_URL;
 
 const connectDB = async () => {
   try {
