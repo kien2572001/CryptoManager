@@ -8,6 +8,7 @@ const tradeHistorySchema = new mongoose.Schema(
     toPrice: Number,
     fromAmount: Number,
     toAmount: Number,
+    type: String, // add or swap
   },
   { timestamps: true }
 );

@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export default function PortfolioChart() {
+export default function PortfolioChart({ coins }) {
   const options = {
     plotOptions: {
       pie: {
@@ -11,11 +11,12 @@ export default function PortfolioChart() {
         },
       },
     },
+    label: coins.map((coin) => coin.symbol),
   };
 
-  const series = [44, 55, 13, 43, 22];
-
-  const labels = ["BTC", "ETH", "BNB", "ADA", "XRP"];
+  const series = coins.map(
+    (coin) => Number.parseFloat(coin.amount) * Number.parseFloat(coin.costPrice)
+  );
 
   return (
     <div className="h-full flex items-center justify-left">
@@ -24,6 +25,7 @@ export default function PortfolioChart() {
         series={series}
         width="500px"
         type="donut"
+        style={{ color: "#ffffff" }}
       />
     </div>
   );

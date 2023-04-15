@@ -1,8 +1,11 @@
 import PortfolioChart from "../Chart/PortfolioChart";
 import PortfolioTable from "../Table/PortfolioTable";
 import SwapModal from "../SwapModal";
+import React, { useState } from "react";
 
-export default function Dashbroad() {
+export default function Dashbroad({ portfolio }) {
+  const [coins, setCoins] = useState(portfolio.coins);
+
   return (
     <div className="max-w-screen-xl mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {/*Total balance  */}
@@ -51,10 +54,10 @@ export default function Dashbroad() {
             Portfolio Chart
           </div>
         </div>
-        <PortfolioChart />
+        <PortfolioChart coins={coins} />
       </div>
       <div className="card-container flex flex-col p-6 md:col-span-2 lg:col-span-4 text-white">
-        <PortfolioTable />
+        <PortfolioTable coins={coins} />
       </div>
     </div>
   );

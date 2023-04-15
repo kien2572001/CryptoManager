@@ -7,23 +7,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function createData(currency, ammount, costPrice) {
-  return { currency, ammount, costPrice };
-}
-
-const rows = [
-  createData("BTC", 159, 6.0),
-  createData("ETH", 237, 9.0),
-  createData("BNB", 262, 16.0),
-  createData("ADA", 305, 3.7),
-  createData("DOGE", 356, 16.0),
-];
-
 const styles = {
   padding: "10px",
 };
 
-export default function BasicTable() {
+export default function BasicTable({ coins }) {
+  React.useEffect(() => {
+    console.log(coins);
+  }, [coins]);
+
+  const [rows, setRows] = React.useState(coins);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table" style={styles}>
@@ -40,13 +34,13 @@ export default function BasicTable() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.currency}
+              key={row.symbol}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.currency}
+                {row.symbol}
               </TableCell>
-              <TableCell align="right">{row.ammount}</TableCell>
+              <TableCell align="right">{row.amount}</TableCell>
               <TableCell align="right">{row.costPrice}</TableCell>
               <TableCell align="right">{row.costPrice}</TableCell>
               <TableCell align="right">{row.costPrice}</TableCell>

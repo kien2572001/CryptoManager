@@ -3,10 +3,22 @@ import Portfolio from "../../../../databases/models/portfolio";
 import Coin from "../../../../databases/models/coin";
 import TradeHistory from "../../../../databases/models/tradeHistory";
 import { cryptoSymbol } from "crypto-symbol";
-import bodyParser from "body-parser";
-import formidable from "formidable";
-//import bodyparser from "body-parser";
 const { nameLookup } = cryptoSymbol();
+
+const recalculateCostPrice = async (fromCoin, toCoin, newTrade) => {
+  const { from, to, fromPrice, toPrice, fromAmount, toAmount } = newTrade;
+  fromCoin.amount =
+    Number.parseFloat(fromCoin.amount) - Number.parseFloat(fromAmount);
+  await fromCoin.save();
+
+  toCoin.costPrice =
+    (Number.parseFloat(toCoin.costPrice) * Number.parseFloat(toCoin.amount) +
+      Number.parseFloat(toPrice) * Number.parseFloat(toAmount)) /
+    (Number.parseFloat(toCoin.amount) + Number.parseFloat(toAmount));
+  toCoin.amount =
+    Number.parseFloat(toCoin.amount) + Number.parseFloat(toAmount);
+  await toCoin.save();
+};
 
 export default async function handler(req, res) {
   //only POST requests
@@ -26,10 +38,13 @@ export default async function handler(req, res) {
     toPrice,
     fromAmount,
     toAmount,
+    type: "swap",
   });
   await tradeHistory.save();
 
   const id = tradeHistory._id;
+
+  //search and create if not found
   var fromCoin = await Coin.findOne({ symbol: from });
   if (!fromCoin) {
     let newCoin = await Coin.create({
@@ -46,6 +61,8 @@ export default async function handler(req, res) {
     await portfolio.save();
     fromCoin = newCoin;
   }
+
+  //search and create if not found
   var toCoin = await Coin.findOne({ symbol: to });
   if (!toCoin) {
     let newCoin = await Coin.create({
@@ -67,6 +84,7 @@ export default async function handler(req, res) {
   await fromCoin.save();
   await toCoin.save();
 
+  await recalculateCostPrice(fromCoin, toCoin, tradeHistory);
   res.status(200).json({
     success: true,
     data: {
