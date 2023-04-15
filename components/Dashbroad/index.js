@@ -2,30 +2,49 @@ import PortfolioChart from "../Chart/PortfolioChart";
 import PortfolioTable from "../Table/PortfolioTable";
 import SwapModal from "../SwapModal";
 import React, { useState, useEffect } from "react";
-
-import dynamic from "next/dynamic";
-
-import { BinanceConnector } from "@binance/connector";
-const binance = new BinanceConnector({
-  apiKey: process.env.BINANCE_API_KEY,
-  apiSecret: process.env.BINANCE_API_SECRET,
-});
-
-const symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "ADAUSDT", "DOTUSDT"];
+import axios from "axios";
+const updateInterval = 2000;
 
 export default function Dashbroad({ portfolio }) {
   const [coins, setCoins] = useState(portfolio.coins);
 
+  const [prices, setPrices] = useState([]);
+
   useEffect(() => {
-    const handlerTicker = (data) => {
-      console.log(data);
-      // xu ly data
-    };
-    binance.subscribeTicker(symbols, handlerTicker);
+    const intervalId = setInterval(() => {
+      const symbols = coins
+        .filter((coin) => coin.symbol !== "USDT")
+        .map((coin) => coin.symbol + "USDT");
+
+      axios
+        .post("/api/spot/price", { symbols: symbols })
+        .then((response) => {
+          //console.log(response.data);
+          setCoins((coins) => {
+            return coins.map((coin) => {
+              const price = response.data.find(
+                (price) =>
+                  price.symbol === coin.symbol + "USDT" &&
+                  price.symbol !== "USDT"
+              );
+              //onsole.log(price);
+              return {
+                ...coin,
+                lastPrice: price ? price.price : coin.lastPrice,
+              };
+            });
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, updateInterval);
+
     return () => {
-      binance.unsubscribeTicker(symbols, handlerTicker);
+      clearInterval(intervalId);
     };
   }, []);
+
   return (
     <div className="max-w-screen-xl mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {/*Total balance  */}

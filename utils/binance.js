@@ -5,3 +5,4 @@ const apiSecret = process.env.BINANCE_API_SECRET;
 
 const client = new Spot(apiKey, apiSecret);
 
+export default client;
