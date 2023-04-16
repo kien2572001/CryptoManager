@@ -1,6 +1,6 @@
 import TextField from "@mui/material/TextField";
 
-export default function PriceSelection() {
+export default function PriceSelection({ data, setData }) {
   return (
     <TextField
       id="outlined-number"
@@ -11,6 +11,8 @@ export default function PriceSelection() {
       }}
       variant="outlined"
       fullWidth
+      value={data}
+      onChange={(e) => setData(e.target.value)}
     />
   );
 }

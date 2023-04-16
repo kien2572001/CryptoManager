@@ -31,11 +31,11 @@ export default function BasicTable({ coins }) {
         <TableHead>
           <TableRow>
             <TableCell>Currency</TableCell>
-            <TableCell align="right">Amount|Value</TableCell>
-            <TableCell align="right">Cost Price</TableCell>
-            <TableCell align="right">Last Price</TableCell>
-            <TableCell align="right">Position PNL</TableCell>
-            <TableCell align="right">Operation</TableCell>
+            <TableCell align="left">Amount|Value</TableCell>
+            <TableCell align="left">Cost Price</TableCell>
+            <TableCell align="left">Last Price</TableCell>
+            <TableCell align="left">Position PNL</TableCell>
+            <TableCell align="left">Operation</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,18 +54,27 @@ export default function BasicTable({ coins }) {
                   {row.symbol}
                 </div>
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="left">
                 {row.amount} <br />
                 {Number.parseFloat(row.amount) *
                   Number.parseFloat(row.costPrice).toFixed(2)}{" "}
                 USD
               </TableCell>
-              <TableCell align="right">{row.costPrice}</TableCell>
-              <TableCell align="right">
+              <TableCell align="left">
+                {Number.parseFloat(row.costPrice).toFixed(2)}
+              </TableCell>
+              <TableCell align="left">
                 {Number.parseFloat(row.lastPrice).toFixed(2)}
               </TableCell>
-              <TableCell align="right">{calculatePNL(row)}</TableCell>
-              <TableCell align="right">{row.costPrice}</TableCell>
+              <TableCell align="left">{calculatePNL(row)}</TableCell>
+              <TableCell align="left">
+                <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                  Add
+                </button>
+                <button className="bg-red-500 text-white px-4 py-2 rounded-md ml-2">
+                  Swap
+                </button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
