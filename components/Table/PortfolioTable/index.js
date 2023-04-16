@@ -22,7 +22,26 @@ export default function BasicTable({ coins }) {
     const costPrice = Number.parseFloat(coin.costPrice);
     const lastPrice = Number.parseFloat(coin.lastPrice);
 
-    return Number.parseFloat((lastPrice / costPrice) * 100 - 100).toFixed(2);
+    const positionPNL = Number.parseFloat(
+      (lastPrice / costPrice) * 100 - 100
+    ).toFixed(2);
+    const positionPNLValue = Number.parseFloat(
+      (lastPrice - costPrice) * amount
+    ).toFixed(2);
+    let lostOrGain = positionPNLValue > 0 ? "text-green-500" : "text-red-500";
+
+    return (
+      <div className="flex flex-col gap-1">
+        <span className={`${lostOrGain}`}>
+          {positionPNLValue > 0 ? "+ " : "  "}
+          {positionPNLValue} USD
+        </span>
+        <span className={`text-xs ${lostOrGain}`}>
+          {positionPNL > 0 ? "+ " : "  "}
+          {positionPNL} %
+        </span>
+      </div>
+    );
   };
 
   return (
@@ -55,10 +74,16 @@ export default function BasicTable({ coins }) {
                 </div>
               </TableCell>
               <TableCell align="left">
-                {row.amount} <br />
-                {Number.parseFloat(row.amount) *
-                  Number.parseFloat(row.costPrice).toFixed(2)}{" "}
-                USD
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm">{row.amount}</span>
+                  <span className="text-xs text-gray-500">
+                    {(
+                      Number.parseFloat(row.amount) *
+                      Number.parseFloat(row.costPrice)
+                    ).toFixed(2)}{" "}
+                    USD
+                  </span>
+                </div>
               </TableCell>
               <TableCell align="left">
                 {Number.parseFloat(row.costPrice).toFixed(2)}
