@@ -14,7 +14,7 @@ const cryptos = cryptoSymbol();
 
 import { IconButton } from "@mui/material";
 import { AddCard, CurrencyExchange } from "@mui/icons-material";
-import axios from "axios";
+import axios from "../../utils/axios";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function SwapModal() {
@@ -66,7 +66,7 @@ export default function SwapModal() {
       toAmount: toAmount,
     };
     const response = await axios.post(
-      "http://localhost:3000/api/portfolio/coin/swap",
+      "/portfolio/coin/swap",
       data
     );
     if (response.status === 200) {
@@ -94,7 +94,7 @@ export default function SwapModal() {
     };
 
     const response = await axios.post(
-      "http://localhost:3000/api/portfolio/coin/add",
+      "/portfolio/coin/add",
       data
     );
     if (response.status === 200) {

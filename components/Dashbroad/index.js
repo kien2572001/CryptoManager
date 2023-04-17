@@ -2,8 +2,8 @@ import PortfolioChart from "../Chart/PortfolioChart";
 import PortfolioTable from "../Table/PortfolioTable";
 import SwapModal from "../SwapModal";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-const updateInterval = 2000;
+import axios from '../../utils/axios';
+const updateInterval = 10000;
 
 export default function Dashbroad({ portfolio }) {
   const [coins, setCoins] = useState(portfolio.coins);
@@ -17,7 +17,7 @@ export default function Dashbroad({ portfolio }) {
         .map((coin) => coin.symbol + "USDT");
 
       axios
-        .post("/api/spot/price", { symbols: symbols })
+        .post("/spot/price", { symbols: symbols })
         .then((response) => {
           //console.log(response.data);
           setCoins((coins) => {
