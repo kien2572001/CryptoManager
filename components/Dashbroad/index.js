@@ -3,7 +3,7 @@ import PortfolioTable from "../Table/PortfolioTable";
 import SwapModal from "../SwapModal";
 import React, { useState, useEffect } from "react";
 import axios from '../../utils/axios';
-const updateInterval = 10000;
+const updateInterval = 3000;
 
 export default function Dashbroad({ portfolio }) {
   const [coins, setCoins] = useState(portfolio.coins);
@@ -58,7 +58,9 @@ export default function Dashbroad({ portfolio }) {
         <div className="mt-4">All Time min</div>
         <div className="text-xl font-bold leading-[30px] mt-3">$ 764.61</div>
         <div className="block border-b mt-[16px] mb-[25px] border-b-white"></div>
-        <div className="">Total assets: 8</div>
+        <div className="">Total assets: {
+          coins.length
+        }</div>
       </div>
       {/* Wallet */}
       <div className=" grid grid-rows-2 gap-5">

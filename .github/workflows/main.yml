@@ -32,9 +32,9 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.EC2_PORT }}
+          port: ${{ secrets.EC2_PORT }}            
           script: |
             sudo docker stop my-next-app || true
             sudo docker rm my-next-app || true
             sudo docker pull kien2572001/my-next-app:latest
-            sudo docker run -d -p 3000:3000  -e NEXT_PUBLIC_API_URL=cryptomanager.kien2572001.tech --name my-next-app kien2572001/my-next-app:latest
+            sudo docker run -d -p 3000:3000 --name my-next-app kien2572001/my-next-app:latest
