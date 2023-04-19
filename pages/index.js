@@ -9,18 +9,25 @@ export async function getServerSideProps() {
       name: "Holder",
     },
   });
+  const res2 = await axios.get(
+    "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+  );
+  const BTCprice = res2.data.price;
   const data = res.data;
   return {
     props: {
       data,
+      appData: {
+        BTCprice,
+      },
     },
   };
 }
 
-export default function dashbroad({ data }) {
+export default function dashbroad({ data, appData }) {
   return (
     <MainLayout>
-      <Dashbroad portfolio={data.data} />
+      <Dashbroad portfolio={data.data} appData={appData} />
     </MainLayout>
   );
 }

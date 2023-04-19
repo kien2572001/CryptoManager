@@ -12,11 +12,7 @@ const styles = {
 };
 
 export default function BasicTable({ coins }) {
-  React.useEffect(() => {
-    console.log("coins: ", coins);
-  }, [coins]);
 
-  const [rows, setRows] = React.useState(coins);
   const calculatePNL = (coin) => {
     const amount = Number.parseFloat(coin.amount);
     const costPrice = Number.parseFloat(coin.costPrice);
